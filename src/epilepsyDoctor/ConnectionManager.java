@@ -1,4 +1,4 @@
-package epilepsydoctor;
+package epilepsyDoctor;
 
 public class ConnectionManager {
 
