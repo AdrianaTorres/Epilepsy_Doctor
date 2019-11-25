@@ -15,7 +15,7 @@ import java.util.List;
 
 import mainMethodDoctor.UserProfile;
 
-public class DoctorConnection {
+public class ConnectionManager {
 	//private boolean requestedMonitoring;
 	private Socket manager;
 	private PrintWriter pw;
@@ -23,7 +23,7 @@ public class DoctorConnection {
 	private Thread t;
 	private UserProfile up;
 	
-	public DoctorConnection (String ip) throws Exception {
+	public ConnectionManager (String ip) throws Exception {
         try {
         	manager = new Socket(ip, 9000);
         	pw = new PrintWriter(manager.getOutputStream(), true);
@@ -41,21 +41,6 @@ public class DoctorConnection {
         	throw new Exception();
         }
     }
-	
-	public void closeConnection() {
-		try {
-			manager.close();
-			pw.close();
-			this.killThread();
-		} catch (IOException e) {
-			System.out.println("Could not close the connection!");
-			e.printStackTrace();
-		}
-	}
-	
-	private void killThread() {
-		this.t.interrupt();
-	}
 	
 	public UserProfile login (String UserName, String Password) throws Exception {
 		pw.println("USER REQUESTING LOGIN");
