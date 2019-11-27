@@ -77,7 +77,7 @@ public class LoginDoctor {
 					temp= temp+text_2.getPassword()[i];			
 				}
 				System.out.println(temp);
-				//MainDoctor.login(text_1.getText(),temp , textField.getText(), LoginDoctor.this);
+				MainDoctor.login(text_1.getText(),temp , textField.getText(), LoginDoctor.this);
 			}
 		});
 		JButton button_2= new JButton("Cancel");
@@ -193,7 +193,7 @@ public class LoginDoctor {
 		JButton btnCreateProfile = new JButton("Create Profile");
 		btnCreateProfile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//MainDoctor.createProfile(text_1.getText(), text_2.getText(), textField.getText(), LoginDoctor.this);
+				MainDoctor.createProfile(text_1.getText(), text_2.getText(), textField.getText(), LoginDoctor.this);
 			}
 		});
 		btnCreateProfile.setBackground(Color.DARK_GRAY);
