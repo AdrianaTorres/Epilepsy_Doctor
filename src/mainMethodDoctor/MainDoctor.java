@@ -24,6 +24,7 @@ public class MainDoctor {
 				} else {
 					// If ConnectionManager returns a User Profile it means the server DID find the credentials.
 					window.dispose();
+					// 1º tenemos que pedirle al servidor los reports para después poder mostrarlos.
 					// Aquí hay que llamar a la clase que crea la ventana que muestra la lista de reports de los pacientes.
 					ReportsListScreen reportsScreen =  new ReportsListScreen(up, connectServer);
 				}

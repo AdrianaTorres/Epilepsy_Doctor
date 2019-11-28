@@ -124,6 +124,7 @@ public class ReportsListScreen extends JFrame implements Runnable {
 					/*CALL FOR THE PATIENT VISUALIZER*/
 					int index=list.getSelectedIndex();
 					String name=(String) list.getModel().getElementAt(index);
+					// Linea que llame a una funcion a la que se le pasa el nombre del paciente para coger su report.
 				}
 			}
 		});
