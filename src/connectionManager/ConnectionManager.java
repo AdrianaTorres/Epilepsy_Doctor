@@ -17,7 +17,7 @@ public class ConnectionManager {
 	private PrintWriter pw;
 	private BufferedReader bf;
 	private ObjectInputStream object;
-	private Thread t;
+	private Thread t; //THIS IS NEVER USED, RIGHT? --> DUDA ADRI
 	private UserProfile up;
 	
 	public ConnectionManager (String ip) throws Exception {
@@ -76,6 +76,7 @@ public class ConnectionManager {
 	public void sendProfile(UserProfile up) {
 		pw.println("USER REQUESTING NEW USER PROFILE");
 		pw.println(up.getName());
+		//pw.println(up.getSurname()); --> DUDA ADRI
 	}
 	
 	// This method asks Server for Report name's list and returns this report name's list so that it can be seen on screen:
@@ -101,6 +102,10 @@ public class ConnectionManager {
 			e.printStackTrace();
 		}
 		return r;
+	}
+	
+	public void terminateSession() {
+		pw.println("FINISHED MONITORING");
 	}
 }
 
