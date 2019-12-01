@@ -2,7 +2,11 @@ package mainMethodDoctor;
 
 import guiDoctor.LoginDoctor;
 import guiDoctor.ReportsListScreen;
+
+import java.util.ArrayList;
+
 import connectionManager.ConnectionManager;
+import fileManager.Report;
 
 public class MainDoctor {
 	public static void main(String[] args) {
@@ -23,10 +27,10 @@ public class MainDoctor {
 					window.incorrectPassword();
 				} else {
 					// If ConnectionManager returns a User Profile it means the server DID find the credentials.
+					// We then first close the login window:
 					window.dispose();
-					// 1º tenemos que pedirle al servidor los reports para después poder mostrarlos.
-					// Aquí hay que llamar a la clase que crea la ventana que muestra la lista de reports de los pacientes.
-					ReportsListScreen reportsScreen =  new ReportsListScreen(up, connectServer);
+					// Then we ask server for reports to show the reports window:
+					showReports(connectServer);
 				}
 			} catch (Exception e) {
 				// If the server found the some of the credentials but the password was wrong it displays this.
@@ -48,11 +52,12 @@ public class MainDoctor {
 			connectServer = new ConnectionManager(ip);
 			try {
 				// This method tries creating the credentials, if the server doesn't allow this it will throw an exception.
-				// If everything goes fine it will open a tab so that the user can write his name.
-				// En este caso el doctor solo tiene que meter usuario y contraseña para crear su perfil.
+				// If everything goes fine it will open a window with a message saying everything went well.
+				// Then the same login window will be opened to type name and password to enter the profile.
 				connectServer.createProfile(userName, password);
-				//UserConfiguration uc = new UserConfiguration(cm);
+				window.profileCreated();
 				window.dispose();
+				new LoginDoctor();
 			} catch(Exception e1) {
 				// If the server response is not valid, the login window will display an error message saying it didn't like what it saw.
 				window.profileNotValid();
@@ -65,14 +70,12 @@ public class MainDoctor {
 		}
 	}
 	
-	public static void requestNewProfile(UserProfile up, ConnectionManager cm) {
-		cm.sendProfile(up);
-		LoginDoctor l = new LoginDoctor();
-	}
-	
-	public static void showReports () {
+	public static void showReports (ConnectionManager cm) {
 		try {
-			
+			// First we ask server for report's names list.
+			ArrayList<String> reports = cm.askForReports();
+			// Now that we have the report's names, we can show them on a screen:
+			new ReportsListScreen(reports);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -30,6 +30,8 @@ public class LoginDoctor {
 	
 	public LoginDoctor() {
 		f= new JFrame();
+		
+		// We create the login window:
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -48,6 +50,7 @@ public class LoginDoctor {
 		panel_2.setBackground(Color.black);
 		panel_3.setBackground(Color.BLACK);
 		
+		// Here we create the TEXT FIELDS for name and password: ___________________________________
 		Font ui = new Font("Segoe UI", Font.PLAIN,12);
 		JLabel label_1= new JLabel("Login");
 		JLabel label_2= new JLabel("User Name");
@@ -65,22 +68,25 @@ public class LoginDoctor {
 		JPasswordField text_2 = new JPasswordField();
 		text_1.setFont(ui);
 		text_2.setFont(ui);
+		// up to here.______________________________________________________________________________
 		
 		text_1.setBackground(Color.GRAY);
 		text_2.setBackground(Color.GRAY);
 		
-		JButton button_1= new JButton("Login");
+		// Here we create the buttons 'login' and 'cancel' with its corresponding interactions:_____
+		JButton button_1 = new JButton("Login");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String temp="";
+				String temp = "";
 				for (int i = 0; i < text_2.getPassword().length; i++) {
-					temp= temp+text_2.getPassword()[i];			
+					temp = temp+text_2.getPassword()[i];			
 				}
 				System.out.println(temp);
 				MainDoctor.login(text_1.getText(),temp , textField.getText(), LoginDoctor.this);
 			}
 		});
-		JButton button_2= new JButton("Cancel");
+		
+		JButton button_2 = new JButton("Cancel");
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.exit(0);
@@ -95,6 +101,7 @@ public class LoginDoctor {
 		
 		button_1.setFont(ui);
 		button_2.setFont(ui);
+		// up to here.______________________________________________________________________________
 		
 		contentPane.add(panel_1, BorderLayout.NORTH);
 		panel_1.add(label_1);
@@ -168,6 +175,7 @@ public class LoginDoctor {
 		gbc_verticalStrut.gridy = 4;
 		panel_2.add(verticalStrut, gbc_verticalStrut);
 		
+		// Here we create text field for 'server IP': ______________________________________________
 		JLabel lblServerIp = new JLabel("Server IP");
 		lblServerIp.setForeground(Color.WHITE);
 		lblServerIp.setFont(ui);
@@ -186,10 +194,12 @@ public class LoginDoctor {
 		gbc_textField.gridy = 5;
 		panel_2.add(textField, gbc_textField);
 		textField.setColumns(10);
+		// up to here.______________________________________________________________________________
 		
 		panel_3.add(button_1);
 		panel_3.add(button_2);
 		
+		// Here goes the interaction for 'create profile' button: __________________________________
 		JButton btnCreateProfile = new JButton("Create Profile");
 		btnCreateProfile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -201,13 +211,15 @@ public class LoginDoctor {
 		btnCreateProfile.setFont(ui);
 		panel_3.add(btnCreateProfile);
 		f.setVisible(true);
-		
+		// up to here.______________________________________________________________________________
 	}
 	
+	// This method allows closing a window:
 	public void dispose() {
 		f.dispose();
 	}
 	
+	// Following methods show little windows with error/warning messages:
 	public void failedConnection() {
 		JOptionPane.showMessageDialog(null, "Failed to connect to server", "ERROR", JOptionPane.ERROR_MESSAGE);
 	}
@@ -222,5 +234,9 @@ public class LoginDoctor {
 	
 	public void profileNotValid() {
 		JOptionPane.showMessageDialog(null, "The username already exists", "ERROR", JOptionPane.ERROR_MESSAGE);
+	}
+	
+	public void profileCreated() {
+		JOptionPane.showMessageDialog(null, "Profile has been created! Please, introduce your credentials again.", "NEW PROFILE CREATED", JOptionPane.INFORMATION_MESSAGE);
 	}
 }

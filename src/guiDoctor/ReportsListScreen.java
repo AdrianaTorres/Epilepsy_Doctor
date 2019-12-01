@@ -39,18 +39,22 @@ public class ReportsListScreen extends JFrame implements Runnable {
 	private static JList list;
 	private JPanel contentPane;
 	private JTextField tag;
-	private static List<String> users; // users or reports?
-	private String rP = System.getProperty("user.dir")+"\\reports"; // folder we have to enter to get data to show on screen for doc
+	private static List<String> reports;
+	private String rP = System.getProperty("user.dir")+"\\reports";
 	
-	// This should be reports, right?
-	public ReportsListScreen(List<String>activePatients) {
-		this.users = activePatients;
+	
+	public void ReportsListSreen() {
+		
+	}
+	
+	public ReportsListScreen(List<String>reportsNames) {
+		this.reports = reportsNames;
 	}
 
 	private static String[] filterList(String name) {
 		List <String> matches=new ArrayList<String>();
 		int counter=0;
-		for (Iterator iterator = users.iterator(); iterator.hasNext();) {
+		for (Iterator iterator = reports.iterator(); iterator.hasNext();) {
 			String string = (String) iterator.next();
 			if(string.contains(name)) {
 				matches.add(string);
@@ -78,12 +82,12 @@ public class ReportsListScreen extends JFrame implements Runnable {
 		list.setVisible(true);
 	}
 	
-	public static void updateClients(String clients) {
-		users.add(clients);
+	public static void updateReports(String report) {
+		reports.add(report);
 	}
 	
-	public static void removeClients(String clients) {
-		users.remove(clients);
+	public static void removeReports(String report) {
+		reports.remove(report);
 	}
 
 	@Override
@@ -125,6 +129,7 @@ public class ReportsListScreen extends JFrame implements Runnable {
 					int index=list.getSelectedIndex();
 					String name=(String) list.getModel().getElementAt(index);
 					// Linea que llame a una funcion a la que se le pasa el nombre del paciente para coger su report.
+					
 				}
 			}
 		});
@@ -146,7 +151,7 @@ public class ReportsListScreen extends JFrame implements Runnable {
 		contentPane.add(new JScrollPane(list), BorderLayout.CENTER);
 
 		DefaultListModel<String> listModel =new DefaultListModel<String>();
-		for (Iterator<String> iterator = this.users.iterator(); iterator.hasNext();) {
+		for (Iterator<String> iterator = this.reports.iterator(); iterator.hasNext();) {
 			String string = (String) iterator.next();
 			listModel.addElement(string);
 		}
@@ -183,7 +188,7 @@ public class ReportsListScreen extends JFrame implements Runnable {
 
 		try {
 			BufferedImage nominal;
-			nominal = ImageIO.read(new File(rP+"\\logo.jpg"));
+			nominal = ImageIO.read(new File(rP+"\\logo.jpg")); // Ask Rodri to load this image on Doctor project directly.
 			JLabel picLabel = new JLabel(new ImageIcon(nominal));
 			panel_4.add(picLabel,BorderLayout.NORTH);
 		}catch(Exception ex) {
@@ -246,9 +251,9 @@ public class ReportsListScreen extends JFrame implements Runnable {
 					ReportsListScreen.updateList(updatedList);
 				}else {
 					if(tag.getText().equals("")) {
-						String[]clients=new String[users.size()];
+						String[]clients=new String[reports.size()];
 						for (int i = 0; i < clients.length; i++) {
-							clients[i]=users.get(i);
+							clients[i]=reports.get(i);
 						}
 						ReportsListScreen.updateList(clients);
 					}else {

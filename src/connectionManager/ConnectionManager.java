@@ -1,17 +1,22 @@
 package connectionManager;
 
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 import java.io.PrintWriter;
+import java.awt.List;
 import java.io.BufferedReader;
 import java.net.Socket;
+import java.util.ArrayList;
 
 import mainMethodDoctor.UserProfile;
+import fileManager.Report;
 
 public class ConnectionManager {
 	//private boolean requestedMonitoring;
 	private Socket manager;
 	private PrintWriter pw;
 	private BufferedReader bf;
+	private ObjectInputStream object;
 	private Thread t;
 	private UserProfile up;
 	
@@ -20,7 +25,7 @@ public class ConnectionManager {
         	manager = new Socket(ip, 9000);
         	pw = new PrintWriter(manager.getOutputStream(), true);
         	bf = new BufferedReader(new InputStreamReader(manager.getInputStream()));
-			//requestedMonitoring = false;
+        	object = new ObjectInputStream(manager.getInputStream());
         } catch (Exception e) {
         	System.out.println("Could not connect to server!");
         	
@@ -73,8 +78,29 @@ public class ConnectionManager {
 		pw.println(up.getName());
 	}
 	
-	public void showReportsScreen() {
-		
+	// This method asks Server for Report name's list and returns this report name's list so that it can be seen on screen:
+	public ArrayList<String> askForReports() throws Exception{
+		pw.println("USER REQUESTING REPORTS LIST");
+		ArrayList<String> reports = new ArrayList<String>();
+		try {
+			while(!(bf.readLine() == null)) {
+				reports.add(bf.readLine());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return reports;
+	}
+	
+	public Report showReport(String reportName) throws Exception{
+		pw.println("USER REQUESTING REPORT");
+		Report r = new Report();
+		try {
+			r = (Report) object.readObject();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return r;
 	}
 }
 
