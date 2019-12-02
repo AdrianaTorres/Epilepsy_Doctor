@@ -1,11 +1,11 @@
 package connectionManager;
 
 import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
 import java.io.PrintWriter;
 import java.io.BufferedReader;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.List;
 
 import mainMethodDoctor.UserProfile;
 import fileManager.Report;
@@ -14,7 +14,6 @@ public class ConnectionManager {
 	private Socket manager;
 	private PrintWriter pw;
 	private BufferedReader bf;
-	private ObjectInputStream object;
 	private UserProfile up;
 	
 	public ConnectionManager (String ip) throws Exception {
@@ -22,7 +21,6 @@ public class ConnectionManager {
         	manager = new Socket(ip, 9009);
         	pw = new PrintWriter(manager.getOutputStream(), true);
         	bf = new BufferedReader(new InputStreamReader(manager.getInputStream()));
-        	object = new ObjectInputStream(manager.getInputStream());
         } catch (Exception e) {
         	System.out.println("Could not connect to server!");
         	
@@ -96,15 +94,73 @@ public class ConnectionManager {
 		return reports;
 	}
 	
-	public Report showReport(String reportName) throws Exception{
+	public Report showReport(String reportName){
 		pw.println("USER REQUESTING REPORT");
-		Report r = new Report();
+		
+		List<Double> time1 = new ArrayList <Double>();
+		List<Double> time2 = new ArrayList <Double>();
+		List<Double> ecg = new ArrayList <Double>();
+		List<Double> eeg = new ArrayList <Double>();
+		String comment="";
+		
 		try {
-			r = (Report) object.readObject();
+			boolean phaseOneComplete=false;
+			boolean comments=false;
+			String inputRead;
+			while((inputRead=bf.readLine())!=null) {
+				try {
+					parser(inputRead);
+					if(!phaseOneComplete) {
+						time1.add(parser(inputRead)[0]);
+						eeg.add(parser(inputRead)[1]);
+					}
+					if(phaseOneComplete && ! comments) {
+						time2.add(parser(inputRead)[0]);
+						ecg.add(parser(inputRead)[1]);
+					}
+				}catch(Exception e) {
+					if(inputRead.contains("ECG")) {
+						phaseOneComplete=true;
+					}
+					if(inputRead.contains("COMMENTS")) {
+						comments=true;
+					}
+					if(comments && !inputRead.contains("COMMENTS")) {
+						comment=comment+"\n"+inputRead;
+					}
+				}
+			}
+			try {
+				bf.close();
+			}catch(Exception e) {
+				System.out.println("could not close reader");
+				e.printStackTrace();
+			}
+			return new Report ((new List[]{time2, ecg}),(new List[]{time1, eeg}),comment);
 		} catch (Exception e) {
+			System.out.println("could not read report");
 			e.printStackTrace();
+			return null;
 		}
-		return r;
+	}
+	
+	private static double[]parser(String data){
+		char[] temp=data.toCharArray();
+		double time=0;
+		double input=0;
+		String helper="";
+		for (int i = 0; i < temp.length; i++) {
+			if(temp[i]!=' ') {
+				helper=helper+temp[i];
+			}else {
+				time=Double.parseDouble(helper);
+				helper="";
+			}
+			if(i==temp.length-1) {
+				input=Double.parseDouble(helper);
+			}
+		}
+		return new double[] {time, input};
 	}
 	
 	public void terminateSession() {
