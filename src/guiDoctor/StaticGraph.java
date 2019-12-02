@@ -3,11 +3,13 @@ package guiDoctor;
 import java.awt.BorderLayout;
 import java.util.List;
 import javax.swing.JPanel;
+
 import org.knowm.xchart.XChartPanel;
 import org.knowm.xchart.XYChart;
 import org.knowm.xchart.XYChartBuilder;
 
-public class StaticGraph {
+
+public class StaticGraph extends JPanel{
 	public StaticGraph(List <Double>[] data,String plotType) {
 
 		XYChart chart = new XYChartBuilder().width(400).height(200).title(plotType).build();
