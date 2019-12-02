@@ -175,7 +175,7 @@ public class ReportViewer {
 				if(!text_1.getText().equals("")) {
 					try {
 						int shift =Integer.parseInt(text_1.getText());
-						PatientViewer.this.defaultShiftEEG=shift;
+						ReportViewer.this.defaultShiftEEG=shift;
 						//reScaleEEG();
 					}catch(Exception e) {
 						e.printStackTrace();
@@ -248,7 +248,7 @@ public class ReportViewer {
 				if(!text_2.getText().equals("")) {
 					try {
 						int shift =Integer.parseInt(text_2.getText());
-						PatientViewer.this.defaultShiftECG=shift;
+						ReportViewer.this.defaultShiftECG=shift;
 						//reScaleECG();
 					}catch(Exception e) {
 						e.printStackTrace();
@@ -402,8 +402,9 @@ public class ReportViewer {
 		stop.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				f.dispose();
+				// que se cierre la ventana q muestra el report habiendose quedado la otra abierta, luego no hace falta llamarla otra vez.
 				//MainScreen.invokeMe();
-				new ReportsListScreen();
+				//new ReportsListScreen();
 			}
 		});
 		stop.setForeground(Color.BLACK);

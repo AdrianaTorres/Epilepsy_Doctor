@@ -2,11 +2,11 @@ package mainMethodDoctor;
 
 import guiDoctor.LoginDoctor;
 import guiDoctor.ReportsListScreen;
-
-import java.util.ArrayList;
-
+import guiDoctor.UserConfiguration;
 import connectionManager.ConnectionManager;
 import fileManager.Report;
+
+import java.util.ArrayList;
 
 public class MainDoctor {
 	public static void main(String[] args) {
@@ -52,12 +52,12 @@ public class MainDoctor {
 			connectServer = new ConnectionManager(ip);
 			try {
 				// This method tries creating the credentials, if the server doesn't allow this it will throw an exception.
-				// If everything goes fine it will open a window with a message saying everything went well.
+				// If everything goes fine it will open a window to type name and surname to create new profile.
 				// Then the same login window will be opened to type name and password to enter the profile.
 				connectServer.createProfile(userName, password);
-				window.profileCreated();
+				new UserConfiguration(connectServer);
+				//window.profileCreated();
 				window.dispose();
-				new LoginDoctor();
 			} catch(Exception e1) {
 				// If the server response is not valid, the login window will display an error message saying it didn't like what it saw.
 				window.profileNotValid();
@@ -68,6 +68,11 @@ public class MainDoctor {
 			window.failedConnection();
 			e.printStackTrace();
 		}
+	}
+	
+	public static void requestNewProfile(UserProfile up, ConnectionManager cm) {
+		cm.sendProfile(up);
+		new LoginDoctor();
 	}
 	
 	public static void showReports (ConnectionManager cm) {

@@ -236,7 +236,7 @@ public class LoginDoctor {
 		JOptionPane.showMessageDialog(null, "The username already exists", "ERROR", JOptionPane.ERROR_MESSAGE);
 	}
 	
-	public void profileCreated() {
+	/*public void profileCreated() {
 		JOptionPane.showMessageDialog(null, "Profile has been created! Please, introduce your credentials again.", "NEW PROFILE CREATED", JOptionPane.INFORMATION_MESSAGE);
-	}
+	}*/
 }

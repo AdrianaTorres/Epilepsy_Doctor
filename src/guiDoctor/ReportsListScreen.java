@@ -43,9 +43,9 @@ public class ReportsListScreen extends JFrame implements Runnable {
 	private String rP = System.getProperty("user.dir")+"\\reports";
 	
 	
-	public void ReportsListSreen() {
+	/*public void ReportsListSreen() {
 		
-	}
+	}*/
 	
 	public ReportsListScreen(List<String>reportsNames) {
 		this.reports = reportsNames;
@@ -84,9 +84,13 @@ public class ReportsListScreen extends JFrame implements Runnable {
 	
 	public static void updateReports(String report) {
 		reports.add(report);
+		reports.add(report);
+		reports.add(report);
 	}
 	
 	public static void removeReports(String report) {
+		reports.remove(report);
+		reports.remove(report);
 		reports.remove(report);
 	}
 
@@ -129,7 +133,9 @@ public class ReportsListScreen extends JFrame implements Runnable {
 					int index=list.getSelectedIndex();
 					String name=(String) list.getModel().getElementAt(index);
 					// Linea que llame a una funcion a la que se le pasa el nombre del paciente para coger su report.
-					
+					// coger nombre del report que se pincha con ratón 
+					// report = connectionManager.showReport(reportName)
+					// new ReportViewer(report)
 				}
 			}
 		});
