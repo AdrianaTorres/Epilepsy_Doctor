@@ -19,7 +19,7 @@ public class ConnectionManager {
 	
 	public ConnectionManager (String ip) throws Exception {
         try {
-        	manager = new Socket(ip, 9001);
+        	manager = new Socket(ip, 9009);
         	pw = new PrintWriter(manager.getOutputStream(), true);
         	bf = new BufferedReader(new InputStreamReader(manager.getInputStream()));
         	object = new ObjectInputStream(manager.getInputStream());
