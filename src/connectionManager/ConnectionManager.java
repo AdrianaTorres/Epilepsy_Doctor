@@ -17,7 +17,6 @@ public class ConnectionManager {
 	private PrintWriter pw;
 	private BufferedReader bf;
 	private ObjectInputStream object;
-	private Thread t; //THIS IS NEVER USED, RIGHT? --> DUDA ADRI
 	private UserProfile up;
 	
 	public ConnectionManager (String ip) throws Exception {
