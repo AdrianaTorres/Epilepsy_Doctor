@@ -4,7 +4,6 @@ import guiDoctor.LoginDoctor;
 import guiDoctor.ReportsListScreen;
 import guiDoctor.UserConfiguration;
 import connectionManager.ConnectionManager;
-import fileManager.Report;
 
 import java.util.ArrayList;
 
