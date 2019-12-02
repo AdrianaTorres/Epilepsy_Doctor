@@ -83,8 +83,12 @@ public class ConnectionManager {
 	public ArrayList<String> askForReports() throws Exception{
 		pw.println("USER REQUESTING REPORTS LIST");
 		ArrayList<String> reports = new ArrayList<String>();
+		String name;
+		String surname;
 		try {
 			while(!(bf.readLine() == null)) {
+				name = bf.readLine();
+				surname = bf.readLine();
 				reports.add(bf.readLine());
 			}
 		} catch (Exception e) {
