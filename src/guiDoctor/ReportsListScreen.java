@@ -28,6 +28,10 @@ import javax.swing.JList;
 import javax.swing.SwingConstants;
 import javax.swing.Box;
 import javax.swing.event.ListSelectionListener;
+
+import connectionManager.ConnectionManager;
+import mainMethodDoctor.MainDoctor;
+
 import javax.swing.event.ListSelectionEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -35,23 +39,16 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import java.io.File;
 
-public class ReportsListScreen extends JFrame implements Runnable {
+public class ReportsListScreen {
 	private static JList list;
 	private JPanel contentPane;
 	private JTextField tag;
 	private static List<String> reports;
-	private String rP = System.getProperty("user.dir")+"\\reports";
-	
-	
-	/*public void ReportsListSreen() {
-		
-	}*/
-	
-	public ReportsListScreen(List<String>reportsNames) {
-		this.reports = reportsNames;
-	}
+	private String rP = System.getProperty("user.dir")+"\\resourcesDoctor";
+	private JFrame f= new JFrame();
 
 	private static String[] filterList(String name) {
+		
 		List <String> matches=new ArrayList<String>();
 		int counter=0;
 		for (Iterator iterator = reports.iterator(); iterator.hasNext();) {
@@ -94,14 +91,16 @@ public class ReportsListScreen extends JFrame implements Runnable {
 		reports.remove(report);
 	}
 
-	@Override
-	public void run() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+	
+	public ReportsListScreen(ArrayList <String> reports,ConnectionManager cm) {
+		this.reports=reports;
+		System.out.println("YAYEET");
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		f.setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		super.setExtendedState(super.getExtendedState() | JFrame.MAXIMIZED_BOTH);
-		setContentPane(contentPane);
+		f.setExtendedState(f.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+		f.setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 
 		Font ui =new Font("Segoe UI",Font.PLAIN,15);
@@ -130,12 +129,16 @@ public class ReportsListScreen extends JFrame implements Runnable {
 			public void mouseClicked(MouseEvent arg0) {
 				if(arg0.getClickCount()==2 && arg0.getButton()==arg0.BUTTON1) {
 					/*CALL FOR THE PATIENT VISUALIZER*/
-					int index=list.getSelectedIndex();
-					String name=(String) list.getModel().getElementAt(index);
-					// Linea que llame a una funcion a la que se le pasa el nombre del paciente para coger su report.
-					// coger nombre del report que se pincha con ratón 
-					// report = connectionManager.showReport(reportName)
-					// new ReportViewer(report)
+					try {
+						int index=list.getSelectedIndex();
+						String name=(String) list.getModel().getElementAt(index);
+						if(!name.equals("NO REPORTS AVAILABLE")) {
+							
+							MainDoctor.getReport(name,cm);
+						}
+					}catch(Exception e) {
+						ReportsListScreen.updateReports("NO REPORTS AVAILABLE");
+					}
 				}
 			}
 		});
@@ -194,7 +197,7 @@ public class ReportsListScreen extends JFrame implements Runnable {
 
 		try {
 			BufferedImage nominal;
-			nominal = ImageIO.read(new File(rP+"\\logo.jpg")); // Ask Rodri to load this image on Doctor project directly.
+			nominal = ImageIO.read(new File(rP+"\\logo.jpg"));
 			JLabel picLabel = new JLabel(new ImageIcon(nominal));
 			panel_4.add(picLabel,BorderLayout.NORTH);
 		}catch(Exception ex) {
@@ -308,7 +311,7 @@ public class ReportsListScreen extends JFrame implements Runnable {
 		gbc_horizontalStrut_2.gridy = 3;
 		panel_5.add(horizontalStrut_2, gbc_horizontalStrut_2);
 
-		super.setVisible(true);
+		f.setVisible(true);
 	}
 }
 

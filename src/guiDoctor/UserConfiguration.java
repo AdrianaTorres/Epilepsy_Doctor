@@ -38,7 +38,7 @@ import mainMethodDoctor.UserProfile;
 public class UserConfiguration {
 	private JPanel contentPane;
 	private JFrame f = new JFrame();
-	private String rP=System.getProperty("user.dir")+"\\resources";
+	private String rP=System.getProperty("user.dir")+"\\resourcesDoctor";
 
 	public UserConfiguration(ConnectionManager cm) {
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

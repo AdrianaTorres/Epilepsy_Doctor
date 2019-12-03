@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mainMethodDoctor.UserProfile;
+import mainMethodDoctor.UserProfilePatient;
 import fileManager.Report;
 
 public class ConnectionManager {
@@ -38,8 +39,6 @@ public class ConnectionManager {
 		pw.println("USER REQUESTING LOGIN");
 		pw.println(UserName);
 		pw.println(Password);
-
-		Thread.sleep(100);
 
 		String serverAnswer = bf.readLine();
 
@@ -81,13 +80,14 @@ public class ConnectionManager {
 		pw.println("USER REQUESTING REPORTS LIST");
 		ArrayList<String> reports = new ArrayList<String>();
 		try {
-			while (!(bf.readLine() == null)) {
-				// Add patient name:
-				reports.add(bf.readLine());
-				// Add patient surname:
-				reports.add(bf.readLine());
-				// Add patient report name:
-				reports.add(bf.readLine());
+			String temp="";
+			while (!(temp == null)) {
+				temp=bf.readLine();
+				if(temp==null || temp.equals("DONE")){
+					System.out.println("we are done with the reports");
+					break;
+				}
+				reports.add(temp);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -166,5 +166,23 @@ public class ConnectionManager {
 
 	public void terminateSession() {
 		pw.println("FINISHED MONITORING");
+	}
+
+	public UserProfilePatient getPatientProfile(String name) {
+		pw.println("USER REQUESTING PATIENT PROFILE");
+		pw.println(name);
+		try {
+			String n=bf.readLine();
+			String s=bf.readLine();
+			int w = Integer.parseInt(bf.readLine());
+			int a = Integer.parseInt(bf.readLine());
+			char g= bf.readLine().toCharArray()[0];
+			UserProfilePatient upp= new UserProfilePatient(n, s, w, a, g);
+			return upp;
+		}catch(Exception e) {
+			System.out.println("could not recieve a proper response");
+			return null;
+		}
+		
 	}
 }

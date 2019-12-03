@@ -1,9 +1,11 @@
 package mainMethodDoctor;
 
 import guiDoctor.LoginDoctor;
+import guiDoctor.ReportViewer;
 import guiDoctor.ReportsListScreen;
 import guiDoctor.UserConfiguration;
 import connectionManager.ConnectionManager;
+import fileManager.Report;
 
 import java.util.ArrayList;
 
@@ -78,10 +80,16 @@ public class MainDoctor {
 		try {
 			// First we ask server for report's names list.
 			ArrayList<String> reports = cm.askForReports();
+			System.out.println("I actually dont blow up ");
 			// Now that we have the report's names, we can show them on a screen:
-			new ReportsListScreen(reports);
+			ReportsListScreen rls=new ReportsListScreen(reports,cm);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	public static void getReport(String name, ConnectionManager cm) {
+		Report r=cm.showReport(name);
+		UserProfilePatient user= cm.getPatientProfile(name);
+		ReportViewer rv= new ReportViewer(user, r);
 	}
 }
