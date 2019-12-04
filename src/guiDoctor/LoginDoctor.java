@@ -221,19 +221,19 @@ public class LoginDoctor {
 	
 	// Following methods show little windows with error/warning messages:
 	public void failedConnection() {
-		JOptionPane.showMessageDialog(null, "Failed to connect to server", "ERROR", JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(null, "The server is on vacation, however you can call Carl\\nCarl will fix anything, your code problems, your alcoholism, your mariage...\\n you name it sister\\n(605) 475–6968", "ERROR", JOptionPane.ERROR_MESSAGE);
 	}
 	
 	public void incorrectPassword() {
-		JOptionPane.showMessageDialog(null, "Wrong Password", "WARNING", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null, "Wrong guess. Are you trying to do something shady pal?", "WARNING", JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 	public void invalidUsername() {
-		JOptionPane.showMessageDialog(null, "Username not valid", "WARNING", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null, "WOW! You got a rare error! upvote to get some karma", "WARNING", JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 	public void profileNotValid() {
-		JOptionPane.showMessageDialog(null, "The username already exists", "ERROR", JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(null, "The server just called back\\nhe says you can keep the credentials he didn't like them", "ERROR", JOptionPane.ERROR_MESSAGE);
 	}
 	
 	/*public void profileCreated() {

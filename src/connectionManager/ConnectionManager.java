@@ -3,6 +3,7 @@ package connectionManager;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
@@ -97,52 +98,61 @@ public class ConnectionManager {
 
 	public Report showReport(String reportName) {
 		pw.println("USER REQUESTING REPORT");
-
-		List<Double> time1 = new ArrayList<Double>();
-		List<Double> time2 = new ArrayList<Double>();
+		pw.println(reportName);
 		List<Double> ecg = new ArrayList<Double>();
 		List<Double> eeg = new ArrayList<Double>();
-		String comment = "";
-
-		try {
-			boolean phaseOneComplete = false;
-			boolean comments = false;
-			String inputRead;
-			while ((inputRead = bf.readLine()) != null) {
+		List<Double> timeEEG = new ArrayList<Double>();
+		List<Double> timeECG = new ArrayList<Double>();
+		String temp;
+		String instruction = "";
+		String comments = "";
+		int counter = 0;
+		while (true) {
+			try {
+				temp = bf.readLine();
 				try {
-					parser(inputRead);
-					if (!phaseOneComplete) {
-						time1.add(parser(inputRead)[0]);
-						eeg.add(parser(inputRead)[1]);
+					double data = Double.parseDouble(temp);
+					if (instruction.contains("ECG")) {
+						if (counter % 2 == 0) {
+							timeECG.add(data);
+						} else {
+							ecg.add(data);
+						}
+						counter++;
 					}
-					if (phaseOneComplete && !comments) {
-						time2.add(parser(inputRead)[0]);
-						ecg.add(parser(inputRead)[1]);
+					if (instruction.contains("EEG")) {
+						if (counter % 2 == 0) {
+							timeEEG.add(data);
+						} else {
+							eeg.add(data);
+						}
+						counter++;
 					}
+
 				} catch (Exception e) {
-					if (inputRead.contains("ECG")) {
-						phaseOneComplete = true;
+					System.out.println(temp);
+					instruction = temp;
+					counter = 0;
+					if (instruction.equals("COMMENTS")) {
+						comments = temp;
 					}
-					if (inputRead.contains("COMMENTS")) {
-						comments = true;
-					}
-					if (comments && !inputRead.contains("COMMENTS")) {
-						comment = comment + "\n" + inputRead;
+					if (instruction.contains("DONE")) {
+						break;
 					}
 				}
-			}
-			try {
-				bf.close();
-			} catch (Exception e) {
-				System.out.println("could not close reader");
+				
+			} catch (IOException e) {
+				System.out.println("error reading report ");
 				e.printStackTrace();
 			}
-			return new Report((new List[] { time2, ecg }), (new List[] { time1, eeg }), comment);
-		} catch (Exception e) {
-			System.out.println("could not read report");
-			e.printStackTrace();
-			return null;
 		}
+		Report report= new Report();
+		List[] ecgData= new List[] {timeECG,ecg};
+		List[] eegData= new List[] {timeEEG,eeg};
+		report.setEcgData(ecgData);
+		report.setEegData(eegData);
+		report.setComments(comments);
+		return report;
 	}
 
 	private static double[] parser(String data) {

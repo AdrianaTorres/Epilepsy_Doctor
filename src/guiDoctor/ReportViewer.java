@@ -69,7 +69,7 @@ public class ReportViewer {
 	private int defaultShiftECG;
 	private int defaultShiftEEG;
 	
-	private String rP=System.getProperty("user.dir")+"\\resources";
+	private String rP=System.getProperty("user.dir")+"\\resourcesDoctor";
 
 	public ReportViewer(UserProfilePatient user,Report rep) {
 
