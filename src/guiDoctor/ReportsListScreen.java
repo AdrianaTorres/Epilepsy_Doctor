@@ -146,7 +146,7 @@ public class ReportsListScreen {
 			list.setSelectedIndex(0);
 		}catch(Exception e) {
 			e.printStackTrace();
-			System.out.println("list could not be initialized");
+			System.out.println("List could not be initialized");
 		}
 
 		list.addListSelectionListener(new ListSelectionListener() {
@@ -202,7 +202,7 @@ public class ReportsListScreen {
 			panel_4.add(picLabel,BorderLayout.NORTH);
 		}catch(Exception ex) {
 			ex.printStackTrace();
-			System.out.println("failed to import image");
+			System.out.println("Failed to import image");
 		}
 		JLabel label_4=new JLabel("NOT powered by Unity");
 		label_4.setHorizontalAlignment(SwingConstants.CENTER);

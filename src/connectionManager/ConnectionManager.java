@@ -85,7 +85,7 @@ public class ConnectionManager {
 			while (!(temp == null)) {
 				temp=bf.readLine();
 				if(temp==null || temp.equals("DONE")){
-					System.out.println("we are done with the reports");
+					System.out.println("We are done with the reports");
 					break;
 				}
 				reports.add(temp);
@@ -142,7 +142,7 @@ public class ConnectionManager {
 				}
 				
 			} catch (IOException e) {
-				System.out.println("error reading report ");
+				System.out.println("Error reading report ");
 				e.printStackTrace();
 			}
 		}
@@ -190,7 +190,7 @@ public class ConnectionManager {
 			UserProfilePatient upp= new UserProfilePatient(n, s, w, a, g);
 			return upp;
 		}catch(Exception e) {
-			System.out.println("could not recieve a proper response");
+			System.out.println("Could not recieve a proper response.");
 			return null;
 		}
 		

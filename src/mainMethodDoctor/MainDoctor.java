@@ -42,7 +42,7 @@ public class MainDoctor {
 		} catch (Exception e1) {
 			//if the server failed to answer back, display an error message.
 			window.failedConnection();
-			System.out.println("could not connect to the server.");
+			System.out.println("Could not connect to the server.");
 		}
 	}
 	
@@ -80,7 +80,6 @@ public class MainDoctor {
 		try {
 			// First we ask server for report's names list.
 			ArrayList<String> reports = cm.askForReports();
-			System.out.println("I actually dont blow up ");
 			// Now that we have the report's names, we can show them on a screen:
 			ReportsListScreen rls=new ReportsListScreen(reports,cm);
 		} catch (Exception e) {
