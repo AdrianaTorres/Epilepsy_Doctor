@@ -38,13 +38,13 @@ import java.util.Iterator;
 import java.util.List;
 import javax.imageio.ImageIO;
 import java.io.File;
+import java.net.URL;
 
 public class ReportsListScreen {
 	private static JList list;
 	private JPanel contentPane;
 	private JTextField tag;
 	private static List<String> reports;
-	private String rP = System.getProperty("user.dir")+"\\resourcesDoctor";
 	private JFrame f= new JFrame();
 
 	private static String[] filterList(String name) {
@@ -196,8 +196,8 @@ public class ReportsListScreen {
 		panel_4.setBackground(Color.black);
 
 		try {
-			BufferedImage nominal;
-			nominal = ImageIO.read(new File(rP+"\\logo.jpg"));
+			URL nominal;
+			nominal = ReportsListScreen.class.getResource("/logo.jpg");
 			JLabel picLabel = new JLabel(new ImageIcon(nominal));
 			panel_4.add(picLabel,BorderLayout.NORTH);
 		}catch(Exception ex) {

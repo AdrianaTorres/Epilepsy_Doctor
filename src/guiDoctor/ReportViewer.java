@@ -17,6 +17,7 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -68,8 +69,6 @@ public class ReportViewer {
 
 	private int defaultShiftECG;
 	private int defaultShiftEEG;
-	
-	private String rP=System.getProperty("user.dir")+"\\resourcesDoctor";
 
 	public ReportViewer(UserProfilePatient user,Report rep) {
 
@@ -364,15 +363,15 @@ public class ReportViewer {
 		contentPane.add(panel_4, BorderLayout.EAST);
 
 		try {
-			BufferedImage nominal;
+			URL nominal;
 			if(user.getGender()=='m') {
-				nominal = ImageIO.read(new File(rP+"\\NominalMale.jpg"));
+				nominal = ReportViewer.class.getResource("/NominalMale.jpg");
 			}else {
-				nominal = ImageIO.read(new File(rP+"\\NominalFemale.jpg"));
+				nominal = ReportViewer.class.getResource("/NominalFemale.jpg");
 			}
 			JLabel picLabel = new JLabel(new ImageIcon(nominal));
 			panel_4.add(picLabel);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			System.out.println("failed to import image!");
 			e.printStackTrace();
 		}
