@@ -91,41 +91,27 @@ public class UserConfiguration {
 		panel_1.setLayout(gbl_panel_1);
 
 		JLabel label_1 = new JLabel("name");
-		JLabel label_2 = new JLabel("Surname");/*
-		JLabel label_3 = new JLabel("age");
-		JLabel label_4 = new JLabel("Weight");*/
+		JLabel label_2 = new JLabel("Surname");
 		
 		ui= new Font("Segoe UI", Font.PLAIN,12);
 		
 		label_1.setFont(ui);
-		label_2.setFont(ui);/*
-		label_3.setFont(ui);
-		label_4.setFont(ui);*/
+		label_2.setFont(ui);
 		
 		label_1.setForeground(Color.WHITE);
-		label_2.setForeground(Color.WHITE);/*
-		label_3.setForeground(Color.WHITE);
-		label_4.setForeground(Color.WHITE);*/
+		label_2.setForeground(Color.WHITE);
 		
 		JTextField text_1 = new JTextField();
-		JTextField text_2 = new JTextField();/*
-		JTextField text_3 = new JTextField();
-		JTextField text_4 = new JTextField();*/
+		JTextField text_2 = new JTextField();
 		
 		text_1.setBackground(Color.DARK_GRAY);
-		text_2.setBackground(Color.DARK_GRAY);/*
-		text_3.setBackground(Color.DARK_GRAY);
-		text_4.setBackground(Color.DARK_GRAY);*/
+		text_2.setBackground(Color.DARK_GRAY);
 		
 		text_1.setFont(ui);
-		text_2.setFont(ui);/*
-		text_3.setFont(ui);
-		text_4.setFont(ui);*/
+		text_2.setFont(ui);
 		
 		text_1.setForeground(Color.WHITE);
-		text_2.setForeground(Color.WHITE);/*
-		text_3.setForeground(Color.WHITE);
-		text_4.setForeground(Color.WHITE);*/
+		text_2.setForeground(Color.WHITE);
 		
 		try {
 			BufferedImage nominal;
@@ -197,19 +183,6 @@ public class UserConfiguration {
 		gbc_horizontalStrut_7.gridy = 0;
 		panel_1.add(horizontalStrut_2,gbc_horizontalStrut_7);
 		
-		/*GridBagConstraints gbc_horizontalStrut_8 = new GridBagConstraints();
-		gbc_horizontalStrut_8.insets = new Insets(0, 0, 5, 5);
-		gbc_horizontalStrut_8.gridx = 6;
-		gbc_horizontalStrut_8.gridy = 1;
-		panel_1.add(label_3,gbc_horizontalStrut_8);
-		
-		GridBagConstraints gbc_horizontalStrut_9 = new GridBagConstraints();
-		gbc_horizontalStrut_9.fill = GridBagConstraints.HORIZONTAL;
-		gbc_horizontalStrut_9.insets = new Insets(0, 0, 5, 5);
-		gbc_horizontalStrut_9.gridx = 7;
-		gbc_horizontalStrut_9.gridy = 1;
-		panel_1.add(text_3,gbc_horizontalStrut_9);*/
-		
 		Component horizontalStrut = Box.createHorizontalStrut(20);
 		GridBagConstraints gbc_horizontalStrut = new GridBagConstraints();
 		gbc_horizontalStrut.insets = new Insets(0, 0, 5, 5);
@@ -223,19 +196,6 @@ public class UserConfiguration {
 		gbc_horizontalStrut_.gridx = 5;
 		gbc_horizontalStrut_.gridy = 2;
 		panel_1.add(horizontalStrut_4, gbc_horizontalStrut_);
-		
-		/*GridBagConstraints gbc_horizontalStrut_10 = new GridBagConstraints();
-		gbc_horizontalStrut_10.insets = new Insets(0, 0, 5, 5);
-		gbc_horizontalStrut_10.gridx = 6;
-		gbc_horizontalStrut_10.gridy = 2;
-		panel_1.add(label_4,gbc_horizontalStrut_10);
-		
-		GridBagConstraints gbc_horizontalStrut_11 = new GridBagConstraints();
-		gbc_horizontalStrut_11.fill = GridBagConstraints.HORIZONTAL;
-		gbc_horizontalStrut_11.insets = new Insets(0, 0, 5, 5);
-		gbc_horizontalStrut_11.gridx = 7;
-		gbc_horizontalStrut_11.gridy = 2;
-		panel_1.add(text_4,gbc_horizontalStrut_11);*/
 		
 		GridBagConstraints gbc_horizontalStrut_12 = new GridBagConstraints();
 		gbc_horizontalStrut_12.insets = new Insets(0, 0, 5, 0);
@@ -273,18 +233,12 @@ public class UserConfiguration {
 		gbc_chckbxMale.gridy = 5;
 		panel_1.add(chckbxMale, gbc_chckbxMale);
 		
+		chckbxMale.setVisible(false);
 		JButton button_1 = new JButton("Ok");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					/*int age = Integer.parseInt(text_3.getText());
-					int weight = Integer.parseInt(text_4.getText());
-					char gender;
-					if(chckbxMale.isSelected()) {
-						gender='m';
-					}else {
-						gender= 'f';
-					}*/
+
 					UserProfile up = new UserProfile(text_1.getText(),text_2.getText());
 					MainDoctor.requestNewProfile(up, cm);			f.dispose();
 				}catch(Exception e){

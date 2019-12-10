@@ -62,7 +62,6 @@ public class MainDoctor {
 			} catch(Exception e1) {
 				// If the server response is not valid, the login window will display an error message saying it didn't like what it saw.
 				window.profileNotValid();
-				e1.printStackTrace();
 			}
 		} catch (Exception e) {
 			/*same thing as before, if the server doesn't answer back tell the user the connection failed or something.*/
