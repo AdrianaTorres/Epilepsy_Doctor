@@ -133,7 +133,7 @@ public class ConnectionManager {
 					System.out.println(temp);
 					instruction = temp;
 					counter = 0;
-					if (instruction.equals("COMMENTS")) {
+					if (instruction.contains("COMMENTS")) {
 						comments = temp;
 					}
 					if (instruction.contains("DONE")) {
